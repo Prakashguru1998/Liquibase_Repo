@@ -1,9 +1,10 @@
-FROM liquibase:4.15
-RUN yum update -y
+FROM liquibase/liquibase
 RUN mkdir /liquibase
 WORKDIR /liquibase
-COPY ./
+USER liquibase
+USER 1001
 RUN lpm add mysql --global &
-ENTRYPOINT ["/liquibase/docker-enterypoint.sh"]
-
+VOLUME ["/liquibase"]
+ENTRYPOINT ["/liquibase/docker-entrypoint.sh"]
+CMD ["--help"]
 
